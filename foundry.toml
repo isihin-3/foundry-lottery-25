@@ -20,6 +20,10 @@ libs = ["lib"]
 runs = 20
 
 [fmt]
+line_length = 120
+tab_width = 4
+bracket_spacing = false
+multiline_func_header = "attributes_first"
 ignore = ["lib/**"]
 
 # See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options
