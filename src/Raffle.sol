@@ -19,6 +19,7 @@ contract Raffle is VRFConsumerBaseV2Plus {
     enum RaffleState {
         OPEN, // 0
         CALCULATING // 1
+
     }
 
     uint16 private constant REQUEST_CONFIRMATIONS = 3;
@@ -86,15 +87,10 @@ contract Raffle is VRFConsumerBaseV2Plus {
      * @return - ignored
      */
 
-    function checkUpkeep(
-        bytes memory /* checkData */
-    )
+    function checkUpkeep(bytes memory /* checkData */ )
         public
         view
-        returns (
-            bool upkeepNeeded,
-            bytes memory /* performData */
-        )
+        returns (bool upkeepNeeded, bytes memory /* performData */ )
     {
         bool timeHasPassed = ((block.timestamp - s_lastTimestamp) >= i_interval);
         bool isOpen = s_raffleState == RaffleState.OPEN;
@@ -104,11 +100,7 @@ contract Raffle is VRFConsumerBaseV2Plus {
         return (upkeepNeeded, "");
     }
 
-    function performUpkeep(
-        bytes calldata /* performData */
-    )
-        external
-    {
+    function performUpkeep(bytes calldata /* performData */ ) external {
         (bool upkeepNeeded,) = checkUpkeep("");
         if (!upkeepNeeded) {
             revert Raffle__upkeepNotNeeded(address(this).balance, s_players.length, uint256(s_raffleState));
@@ -134,10 +126,7 @@ contract Raffle is VRFConsumerBaseV2Plus {
         uint256,
         /* requestId */
         uint256[] calldata randomWords
-    )
-        internal
-        override
-    {
+    ) internal override {
         // Checks(like if statements, require )
 
         // Effects (Internal contract state)
